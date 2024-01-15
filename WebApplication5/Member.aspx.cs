@@ -11,7 +11,23 @@ namespace WebApplication5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsLoggedIn())
+            {
+                Response.Redirect("Login.aspx");
+            }
+        }
 
+        private bool IsLoggedIn()
+        {
+            return Session["Logined"] != null && int.Parse(Session["Logined"].ToString()) == 1;
+        }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            Response.Redirect("Login.aspx");
         }
     }
 }
